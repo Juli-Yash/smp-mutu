@@ -17,6 +17,8 @@ use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\User\UserCetakController;
 use App\Http\Controllers\Kepsek\KepsekDashboardController;
 use App\Http\Controllers\Kepsek\KepsekLaporanController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 
 
@@ -31,6 +33,16 @@ Route::post('/register', [RegisterUserController::class, 'register'])->name('reg
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
+// Forgot Password
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+//Reset Passwrord
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
+
 
 // Edit Profile
 Route::middleware('auth')->group(function () {
@@ -110,7 +122,7 @@ Route::prefix('user')->middleware(['auth', 'role:user'])->group(function () {
     Route::get('/status', [UserDashboardController::class, 'statusPendaftaran'])->name('siswa.status');
 
     // Halaman Cetak
-    Route::get('/cetak-berkas', [UserDashboardController::class, 'cetakBerkas'])->name('siswa.berkas');
+    Route::get('/cetak-berkas', [UserCetakController::class, 'cetakBerkas'])->name('siswa.berkas');
     Route::get('/cetak-berkas/{id}', [UserCetakController::class, 'cetakBerkasPDF'])->name('siswa.berkas.pdf');
     Route::get('/cetak-surat/{id}', [UserCetakController::class, 'cetakSuratPenerimaan'])->name('siswa.surat.pdf');
 });

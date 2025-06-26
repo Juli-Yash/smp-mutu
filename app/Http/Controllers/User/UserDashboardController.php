@@ -55,13 +55,4 @@ class UserDashboardController extends Controller
 
         return view('adsiswa.hasil-seleksi', compact('pendaftars'));
     }
-
-    /**
-     * Tampilkan hasil seleksi seluruh peserta.
-     */
-    public function cetakBerkas()
-    {
-        $pendaftar = Pendaftaran::where('user_id', auth()->id())->firstOrFail();
-        return view('adsiswa.cetak-berkas', compact('pendaftar'));
-    }
 }

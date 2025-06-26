@@ -140,6 +140,13 @@
                 Login
             </button>
 
+            <!-- Link Lupa Password -->
+            <p class="text-sm text-center mt-4">
+                <a href="{{ route('password.request') }}" class="text-blue-600 hover:underline">
+                    Lupa Password?
+                </a>
+            </p>
+
             <!-- Garis pemisah -->
             <hr class="my-6 border-t border-gray-300">
 
