@@ -32,6 +32,6 @@
         <script src="{{ asset('assets/js/main.js') }}"></script>
         <script>
             new PureCounter();
-        </script>        
+        </script>         
     </body>
 </html>

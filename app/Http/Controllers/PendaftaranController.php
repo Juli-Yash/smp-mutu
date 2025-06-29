@@ -16,92 +16,103 @@ class PendaftaranController extends Controller
     public function showForm()
     {
         if (!auth()->check() || auth()->user()->role !== 'user') {
-            return view('adsiswa.form-pendaftaran')->with('showAlert', true);
+            return view('adsiswa.form-pendaftaran')->with([
+                'showAlert' => true,
+                'sudahDaftar' => false
+            ]);
         }
-    
-        return view('adsiswa.form-pendaftaran')->with('showAlert', false);
+
+        $userId = auth()->id();
+        $sudahDaftar = Pendaftaran::where('user_id', $userId)->exists();
+
+        return view('adsiswa.form-pendaftaran')->with([
+            'showAlert' => false,
+            'sudahDaftar' => $sudahDaftar
+        ]);
     }
     
-            // Proses Penyimpanan Data Pendaftaran
-            public function store(Request $request)
-            {
-                // Validasi Input Data
-                $request->validate([
-                    'nama'                  => 'required|string|max:255',
-                    'jenis_kelamin'         => 'required|in:Laki-laki,Perempuan',
-                    'tempat_lahir'          => 'required|string|max:100',
-                    'tanggal_lahir'         => 'required|date',
-                    'nisn'                  => 'required|digits:10|unique:pendaftarans,nisn',
-                    'asal_sekolah'          => 'required|string|max:255',
-                    'agama'                 => 'required|in:Islam,Kristen,Katolik,Hindu,Buddha,Konghucu',
-                    'jarak_tempat_tinggal'  => 'required|numeric|min:0',
-                    'no_telp'               => ['required', 'regex:/^(0|\+62)[0-9]{9,13}$/'],
-                    'pilihan_ekskul'        => 'required|in:Pencak Silat,Hizbul Wathan,Futsal',
-                    'alamat'                => 'required|string|max:500',
-                    'nilai_rata_rata_skl'   => 'required|numeric|min:0|max:100',
-                    'scan_skl'              => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
-                    'scan_akta'             => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
-                    'scan_kk'               => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
-                    'scan_piagam'           => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
-                    'scan_kip'              => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
-                    'nama_ayah'             => 'required|string|max:255',
-                    'pendidikan_ayah'       => 'required|string|max:255',
-                    'pekerjaan_ayah'        => 'required|string|max:255',
-                    'penghasilan_ayah'      => 'required|string|max:255',
-                    'nama_ibu'              => 'required|string|max:255',
-                    'pendidikan_ibu'        => 'required|string|max:255',
-                    'pekerjaan_ibu'         => 'required|string|max:255',
-                    'penghasilan_ibu'       => 'required|string|max:255',
-                ]);
+    // Proses Penyimpanan Data Pendaftaran
+    public function store(Request $request)
+    {
+        // Validasi Input Data
+        $request->validate([
+            'nama'                  => 'required|string|max:255',
+            'jenis_kelamin'         => 'required|in:Laki-laki,Perempuan',
+            'tempat_lahir'          => 'required|string|max:100',
+            'tanggal_lahir'         => 'required|date',
+            'nisn'                  => 'required|digits:10|unique:pendaftarans,nisn',
+            'asal_sekolah'          => 'required|string|max:255',
+            'agama'                 => 'required|in:Islam,Kristen,Katolik,Hindu,Buddha,Konghucu',
+            'jarak_tempat_tinggal'  => 'required|numeric|min:0',
+            'no_telp'               => ['required', 'regex:/^(0|\+62)[0-9]{9,13}$/'],
+            'pilihan_ekskul'        => 'required|in:Pencak Silat,Hizbul Wathan,Futsal',
+            'alamat'                => 'required|string|max:500',
+            'nilai_rata_rata_skl'   => 'required|numeric|min:0|max:100',
+            'scan_skl'              => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'scan_akta'             => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'scan_kk'               => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'scan_piagam'           => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'scan_kip'              => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'nama_ayah'             => 'required|string|max:255',
+            'pendidikan_ayah'       => 'required|string|max:255',
+            'pekerjaan_ayah'        => 'required|string|max:255',
+            'penghasilan_ayah'      => 'required|string|max:255',
+            'nama_ibu'              => 'required|string|max:255',
+            'pendidikan_ibu'        => 'required|string|max:255',
+            'pekerjaan_ibu'         => 'required|string|max:255',
+            'penghasilan_ibu'       => 'required|string|max:255',
+        ]);
 
-                // Menyiapkan Data Dasar
-                $data = $request->except(['scan_skl', 'scan_akta', 'scan_kk', 'scan_piagam', 'scan_kip']);
-                $data['user_id'] = Auth::id();
-                do {
-                    $data['nomor_pendaftaran'] = 'PPDB-' . now()->format('YmdHis') . '-' . strtoupper(Str::random(3));
-                } while (Pendaftaran::where('nomor_pendaftaran', $data['nomor_pendaftaran'])->exists());
+        // Menyiapkan Data Dasar
+        $data = $request->except(['scan_skl', 'scan_akta', 'scan_kk', 'scan_piagam', 'scan_kip']);
+        $data['user_id'] = Auth::id();
+        do {
+            $data['nomor_pendaftaran'] = 'PPDB-' . now()->format('YmdHis') . '-' . strtoupper(Str::random(3));
+        } while (Pendaftaran::where('nomor_pendaftaran', $data['nomor_pendaftaran'])->exists());
 
-                // Upload Berkas File
-                $files = [
-                    'scan_akta'   => 'uploads/akta',
-                    'scan_kk'     => 'uploads/kk',
-                    'scan_skl'    => 'uploads/skl',
-                    'scan_piagam' => 'uploads/piagam',
-                    'scan_kip'    => 'uploads/kip',
-                ];
+        // Upload Berkas File
+        $files = [
+            'scan_akta'   => 'uploads/akta',
+            'scan_kk'     => 'uploads/kk',
+            'scan_skl'    => 'uploads/skl',
+            'scan_piagam' => 'uploads/piagam',
+            'scan_kip'    => 'uploads/kip',
+        ];
 
-                foreach ($files as $field => $folder) {
-                    if ($request->hasFile($field)) {
-                        $data[$field] = $request->file($field)->store($folder, 'public');
-                    }
-                }
+        foreach ($files as $field => $folder) {
+            if ($request->hasFile($field)) {
+                    $data[$field] = $request->file($field)->store($folder, 'public');
+            }
+        }
 
-                // Simpan ke Database
-                $pendaftaran = Pendaftaran::create($data);
+        // Simpan ke Database
+        $pendaftaran = Pendaftaran::create($data);
 
-                // Mengirim Notifikasi ke WhatsApp
-                try {
-                    $message = "Halo, {$pendaftaran->nama}.\n\n".
-                        "Pendaftaran Anda telah berhasil!\n\n".
-                        "Nama: {$pendaftaran->nama}\n".
-                        "Nomor Pendaftaran: {$pendaftaran->nomor_pendaftaran}\n".
-                        "NISN: {$pendaftaran->nisn}\n\n".
-                        "Silakan tunggu informasi selanjutnya dari panitia.";
+         // Mengirim Notifikasi ke WhatsApp
+        try {
+            $message = "Halo, {$pendaftaran->nama}.\n\n".
+                "Selamat! Pendaftaran Anda di *SMP Muhammadiyah 1 Rowokele* telah *berhasil* kami terima.\n\n".
+                "*Detail Pendaftaran Anda:*\n" .
+                "Nama: {$pendaftaran->nama}\n".
+                "Nomor Pendaftaran: {$pendaftaran->nomor_pendaftaran}\n".
+                "NISN: {$pendaftaran->nisn}\n\n".
+                "Informasi lebih lanjut akan kami kirimkan melalui WhatsApp dan laman pengumuman resmi, silakan tunggu informasi selanjutnya dari panitia.\n\n".
+                "Terima kasih telah mendaftar. Semoga sukses dan sampai jumpa di sekolah!";
 
-                    $response = Http::withHeaders([
-                        'Authorization' => config('services.whatsapp_fonnte.token'),
-                    ])->asForm()->post(config('services.whatsapp_fonnte.url'), [
-                        'target' => $pendaftaran->no_telp,
-                        'message' => $message,
-                    ]);
-                    if ($response->failed()) {
-                        \Log::error("WhatsApp gagal: " . $response->body());
-                    }
-                } catch (\Exception $e) {
-                    \Log::error("Error WhatsApp: " . $e->getMessage());
-                }
-                return redirect()->route('daftar.create')->with('success', 'Pendaftaran berhasil. Notifikasi WhatsApp dikirim.');
-            }    
+            $response = Http::withHeaders([
+                'Authorization' => config('services.whatsapp_fonnte.token'),
+            ])->asForm()->post(config('services.whatsapp_fonnte.url'), [
+                'target' => $pendaftaran->no_telp,
+                'message' => $message,
+            ]);
+            if ($response->failed()) {
+                \Log::error("WhatsApp gagal: " . $response->body());
+            }
+        } catch (\Exception $e) {
+            \Log::error("Error WhatsApp: " . $e->getMessage());
+        }
+        return redirect()->route('siswa.dashboard')->with('success', 'Pendaftaran berhasil. Notifikasi WhatsApp dikirim.');
+    }    
 
     // Update Status Pendaftar
     public function updateStatus(Request $request, $id)
@@ -122,12 +133,27 @@ class PendaftaranController extends Controller
             $noTelp = $pendaftar->no_telp;
             $status = strtoupper($request->status);
 
-            $pesan = "Halo $nama,\n\nBerikut hasil seleksi PPDB SMP Muhammadiyah 1 Rowokele:\n\n" .
+            $pesan = "Halo $nama,\n\n" .
+                "*Pengumuman Hasil Seleksi PPDB*\n" .
+                "SMP Muhammadiyah 1 Rowokele\n\n" .
+                "*Detail Pendaftaran Anda:*\n" .
                 "Nama: $nama\n" .
                 "Nomor Pendaftaran: $nomorPendaftaran\n" .
                 "NISN: $nisn\n" .
-                "Hasil Seleksi: *$status*\n\n" .
+                "Hasil Seleksi: *$status*\n\n";
                 "Terima kasih telah mendaftar.";
+            
+            if ($status === 'DITERIMA') {
+                $pesan .=   "Selamat! Anda *DITERIMA* sebagai calon peserta didik baru.\n" .
+                            "Silakan segera melakukan daftar ulang sesuai jadwal yang ditentukan.\n" .
+                            "Informasi lebih lanjut akan disampaikan melalui WhatsApp dan situs resmi sekolah.\n\n";
+            } else {
+                $pesan .=   "Kami mohon maaf, saat ini Anda *belum diterima* di SMP Muhammadiyah 1 Rowokele.\n" .
+                            "Terima kasih telah mengikuti proses PPDB.\n" .
+                            "Semangat terus dan tetap semangat meraih cita-cita!\n\n";
+            }
+            $pesan .=   "Jika ada pertanyaan, hubungi panitia melalui kontak resmi sekolah.\n\n" .
+                        "Hormat kami,\nPanitia PPDB SMP Muhammadiyah 1 Rowokele";
 
             try {
                 $response = Http::withHeaders([

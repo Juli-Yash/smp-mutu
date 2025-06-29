@@ -111,32 +111,38 @@
                                 <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap">
                                     <!-- Edit -->
                                     <a href="{{ route('admin.pendaftar.edit', $pendaftar->id) }}"
-                                       class="btn btn-sm btn-warning" title="Edit">
+                                        class="btn btn-sm btn-warning" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                            
-                                    <!-- Terima -->
-                                    <button onclick="confirmAction('{{ $pendaftar->id }}', 'Diterima')"
-                                            class="btn btn-sm btn-success" title="Terima">
-                                        <i class="fas fa-check"></i>
-                                    </button>
-                            
-                                    <!-- Tolak -->
-                                    <button onclick="confirmAction('{{ $pendaftar->id }}', 'Ditolak')"
-                                            class="btn btn-sm btn-danger" title="Tolak">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                            
-                                    <form id="form-status-{{ $pendaftar->id }}"
-                                          method="POST"
-                                          action="{{ route('admin.pendaftar.updateStatus', $pendaftar->id) }}"
-                                          class="d-none">
-                                        @csrf
-                                        @method('PATCH')
-                                        <input type="hidden" name="status" id="status-input-{{ $pendaftar->id }}">
-                                    </form>
+
+                                    @php
+                                        $status = strtolower($pendaftar->status);
+                                    @endphp
+
+                                    @if ($status === 'diproses')
+                                        <!-- Terima -->
+                                        <button onclick="confirmAction('{{ $pendaftar->id }}', 'Diterima')"
+                                                class="btn btn-sm btn-success" title="Terima">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+
+                                        <!-- Tolak -->
+                                        <button onclick="confirmAction('{{ $pendaftar->id }}', 'Ditolak')"
+                                                class="btn btn-sm btn-danger" title="Tolak">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+
+                                        <form id="form-status-{{ $pendaftar->id }}"
+                                            method="POST"
+                                            action="{{ route('admin.pendaftar.updateStatus', $pendaftar->id) }}"
+                                            class="d-none">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="hidden" name="status" id="status-input-{{ $pendaftar->id }}">
+                                        </form>
+                                    @endif
                                 </div>
-                            </td>                            
+                            </td>                         
                         </tr>
                         @endforeach
                     </tbody>                    

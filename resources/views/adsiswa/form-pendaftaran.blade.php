@@ -41,9 +41,15 @@
     </div>
 
     <div class="card mt-5">
+        @if ($sudahDaftar)
+            <div class="alert alert-warning text-center">
+                Anda sudah melakukan pendaftaran. Anda tidak bisa mengisi formulir lagi.
+            </div>
+        @endif
         <div class="card-body">
             <h2 class="text-center mb-4 fw-bold display-6">Biodata Siswa</h2>
             <hr>
+            @if (!$sudahDaftar)
             <form action="{{ route('daftar.store') }}" method="POST" class="row g-3" enctype="multipart/form-data">
                 @csrf
                 <div class="col-md-6">
@@ -159,9 +165,10 @@
                     <label for="penghasilan_ibu" class="form-label">Jumlah Penghasilan (per bulan)</label>
                     <input type="number" class="form-control mb-2" id="penghasilan_ibu" name="penghasilan_ibu" required>
                 </div>
-                <div class="col-12 text-center">
-                    <button type="submit" class="btn btn-primary w-100">Daftar</button>
-                </div>
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-primary w-100">Daftar</button>
+                    </div>
+                @endif
             </form>
         </div>
     </div>
