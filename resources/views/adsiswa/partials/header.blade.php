@@ -22,12 +22,13 @@
             id="dropdownMenu"
             class="absolute right-0 mt-2 min-w-[8rem] bg-white border border-gray-200 rounded shadow-lg hidden z-50"
             role="menu" aria-labelledby="dropdownToggle">
-            <form action="{{ route('logout') }}" method="POST" class="block">
+            <form action="{{ route('logout') }}" method="POST" id="logout-form" class="block">
                 @csrf
-                <button type="submit"
+                <button type="button"
+                        onclick="confirmLogout()"
                         class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
                         role="menuitem">
-                    Keluar
+                        Keluar
                 </button>
             </form>
         </div>
