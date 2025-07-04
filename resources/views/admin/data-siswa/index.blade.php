@@ -39,6 +39,7 @@
                             <th class="text-center align-middle">Piagam</th>
                             <th class="text-center align-middle">KIP/PKH</th>
                             <th class="text-center align-middle">Status</th>
+                            <th class="text-center align-middle">Catatan</th>
                             <th class="text-center align-middle">Aksi</th>
                         </tr>
                     </thead>                    
@@ -46,7 +47,7 @@
                         @foreach($pendaftars as $index => $pendaftar)
                         <tr>
                             <td class="text-center align-middle">{{ $index + 1 }}</td>
-                            <td class="align-middle">{{ $pendaftar->nama }}</td>
+                            <td class="text-center align-middle">{{ $pendaftar->nama }}</td>
                             <td class="text-center align-middle">{{ $pendaftar->jenis_kelamin }}</td>
                             <td class="text-center align-middle">{{ $pendaftar->nisn }}</td>
                             <td class="text-center align-middle">{{ $pendaftar->asal_sekolah }}</td>
@@ -106,32 +107,42 @@
                                 @endif
                             </td>
 
+                            <!-- Catatan Penolakan -->
+                            <td class="text-center align-middle">
+                                @if (strtolower($pendaftar->status) === 'ditolak' && $pendaftar->catatan_penolakan)
+                                    <span class="text-sm italic text-red-600">{{ $pendaftar->catatan_penolakan }}</span>
+                                @else
+                                    <span class="text-gray-400 italic">-</span>
+                                @endif
+                            </td>
+
                             <!-- Aksi -->
                             <td class="text-center align-middle">
-                                <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap">
+                                @php
+                                    $status = strtolower($pendaftar->status);
+                                    $isDiproses = $status === 'diproses';
+                                @endphp
+                                
+                                <div class="d-flex {{ $isDiproses ? 'flex-nowrap justify-content-start' : 'justify-content-center' }} align-items-center gap-2 overflow-auto">
                                     <!-- Edit -->
                                     <a href="{{ route('admin.pendaftar.edit', $pendaftar->id) }}"
                                         class="btn btn-sm btn-warning" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
-
-                                    @php
-                                        $status = strtolower($pendaftar->status);
-                                    @endphp
-
-                                    @if ($status === 'diproses')
+                                
+                                    @if ($isDiproses)
                                         <!-- Terima -->
                                         <button onclick="confirmAction('{{ $pendaftar->id }}', 'Diterima')"
                                                 class="btn btn-sm btn-success" title="Terima">
                                             <i class="fas fa-check"></i>
                                         </button>
-
+                                
                                         <!-- Tolak -->
                                         <button onclick="confirmAction('{{ $pendaftar->id }}', 'Ditolak')"
                                                 class="btn btn-sm btn-danger" title="Tolak">
                                             <i class="fas fa-times"></i>
                                         </button>
-
+                                
                                         <form id="form-status-{{ $pendaftar->id }}"
                                             method="POST"
                                             action="{{ route('admin.pendaftar.updateStatus', $pendaftar->id) }}"
@@ -141,7 +152,7 @@
                                             <input type="hidden" name="status" id="status-input-{{ $pendaftar->id }}">
                                         </form>
                                     @endif
-                                </div>
+                                </div>                            
                             </td>                         
                         </tr>
                         @endforeach
@@ -172,7 +183,7 @@
         const titleElement = document.getElementById('fileModalTitle');
 
         titleElement.innerText = `Preview ${title}`;
-        preview.innerHTML = ''; // bersihkan isi sebelumnya
+        preview.innerHTML = '';
 
         if (url.endsWith('.pdf')) {
             preview.innerHTML = `

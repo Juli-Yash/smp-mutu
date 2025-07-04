@@ -91,7 +91,7 @@
                         'scan_kip' => 'KIP / PKH (Opsional)'
                     ] as $field => $label)
                         <div class="col-md-6 mb-4">
-                            <label class="form-label mb-1">Scan{{ $label }}</label>
+                            <label class="form-label mb-1">Scan {{ $label }}</label>
                             @if ($pendaftar->$field)
                                 <div class="mb-2">
                                     <a 
@@ -154,5 +154,49 @@
             </div>
         </form>
     </div>
+
+    {{-- ===== Hapus Pendaftar ===== --}}
+    <div class="col-12 text-center mt-2">
+        <form id="deleteForm" action="{{ route('admin.pendaftar.destroy', $pendaftar->id) }}" method="POST" class="bg-white p-6 rounded shadow">
+            @csrf
+            @method('DELETE')
+
+            <div class="text-center mb-4">
+                <h2 class="text-lg font-bold text-red-600">Hapus Data Pendaftar</h2>
+                <p class="text-sm text-gray-500">Tindakan ini akan menghapus data secara permanen.</p>
+            </div>
+
+            <div class="text-center">
+            <button type="button" id="btnDelete"class="btn btn-danger px-4 py-2 mt-2">
+                <i class="bi bi-trash me-1"></i> Hapus Data 
+            </button>
+            </div>
+        </form>
+    </div>
 </section>
 @endsection
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    const btnDelete = document.getElementById('btnDelete');
+    const deleteForm = document.getElementById('deleteForm');
+
+    btnDelete.addEventListener('click', function () {
+        Swal.fire({
+            title: 'Yakin ingin menghapus data ini?',
+            text: 'Tindakan ini akan menghapus data secara permanen!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Hapus',
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#dc2626',
+            cancelButtonColor: '#6b7280',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteForm.submit();
+            }
+        });
+    });
+</script>
+@endpush

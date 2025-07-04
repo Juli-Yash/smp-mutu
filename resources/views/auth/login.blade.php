@@ -7,7 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <style>
-    <style>
         body {
             background-color: #072ac8;
             color: white;
@@ -47,6 +46,8 @@
     @include('layouts.styles')
 </head>
 <body class="min-h-screen flex items-center justify-center bg-[#072ac8] bg-no-repeat text-gray-800 px-4">
+    
+    @include('components.alerts')
 
     <div 
         class="bg-white rounded-xl shadow-2xl w-full max-w-md p-8 fade-in-down soft-glow"

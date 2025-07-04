@@ -11,20 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jadwals', function (Blueprint $table) {
-            $table->id();
-            $table->string('tahapan');
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
-            $table->timestamps();
+        Schema::table('pendaftarans', function (Blueprint $table) {
+            $table->string('verified_by_name')->nullable()->after('status');
         });
     }
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('jadwals');
+        Schema::table('pendaftarans', function (Blueprint $table) {
+            $table->dropColumn('verified_by_name');
+        });
     }
 };

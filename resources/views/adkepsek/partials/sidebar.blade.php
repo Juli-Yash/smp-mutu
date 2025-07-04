@@ -9,7 +9,7 @@
     }
 </style>
 
-<div class="h-full p-6 text-gray-800 md:text-white md:bg-gray-900 border-b md:border-b-0 md:border-r border-gray-300 md:border-gray-700">
+<aside class="w-64 bg-gray-900 text-white min-h-screen p-6 shadow-lg border-r border-gray-700">
     <!-- Logo / Header -->
     <div class="mb-10 mt-3 text-center">
         <h2 class="text-2xl font-bold flex items-center justify-center gap-2">

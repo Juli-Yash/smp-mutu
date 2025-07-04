@@ -104,6 +104,7 @@
                         <option value="Pencak Silat">Pencak Silat</option>
                         <option value="Hizbul Wathan">Hizbul Wathan</option>
                         <option value="Futsal">Futsal</option>
+                        <option value="Kesenian">Kesenian</option>
                     </select>
                 </div>
                 <div class="col-md-12">

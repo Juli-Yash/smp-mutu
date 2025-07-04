@@ -65,7 +65,7 @@
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
+            cancelButtonColor: '#6b7280',
             confirmButtonText: 'Ya, hapus!',
             cancelButtonText: 'Batal'
         }).then((result) => {
@@ -81,20 +81,64 @@
     function confirmAction(id, status) {
         const label = status === 'Diterima' ? 'Menerima' : 'Menolak';
 
-        Swal.fire({
-            title: `Yakin ingin ${label} pendaftar ini?`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: `Ya, ${label}`,
-            cancelButtonText: 'Batal',
-            confirmButtonColor: status === 'Diterima' ? '#16a34a' : '#dc2626',
-            cancelButtonColor: '#6b7280',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById(`status-input-${id}`).value = status;
-                document.getElementById(`form-status-${id}`).submit();
-            }
-        });
+        if (status === 'Ditolak') {
+            Swal.fire({
+                title: `Yakin ingin ${label} pendaftar ini?`,
+                html: `
+                    <div class="form-group text-start">
+                        <label for="catatan" class="form-label fw-semibold">Catatan Penolakan:</label>
+                        <textarea id="catatan" class="form-control" rows="4" placeholder="Tulis alasan penolakan di sini..."></textarea>
+                    </div>
+                `,
+                icon: 'warning',
+                showCancelButton: true,
+                focusConfirm: false,
+                confirmButtonText: `Ya, ${label}`,
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#dc2626',
+                cancelButtonColor: '#6b7280',
+                preConfirm: () => {
+                    const catatan = document.getElementById('catatan').value.trim();
+                    if (!catatan) {
+                        Swal.showValidationMessage('Catatan penolakan wajib diisi');
+                    }
+                    return catatan;
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const form = document.getElementById(`form-status-${id}`);
+                    document.getElementById(`status-input-${id}`).value = status;
+
+                    // Tambahkan input catatan_penolakan
+                    let catatanInput = form.querySelector('input[name="catatan_penolakan"]');
+                    if (!catatanInput) {
+                        catatanInput = document.createElement('input');
+                        catatanInput.type = 'hidden';
+                        catatanInput.name = 'catatan_penolakan';
+                        form.appendChild(catatanInput);
+                    }
+                    catatanInput.value = result.value;
+
+                    form.submit();
+                }
+            });
+        } else {
+            // Jika status diterima
+            Swal.fire({
+                title: `Yakin ingin ${label} pendaftar ini?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: `Ya, ${label}`,
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#16a34a',
+                cancelButtonColor: '#6b7280',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById(`status-input-${id}`).value = status;
+                    document.getElementById(`form-status-${id}`).submit();
+                }
+            });
+        }
     }
 </script>
 

@@ -31,7 +31,6 @@ class RegisterUserController extends Controller
         ]);
 
         Auth::login($user);
-
-        return redirect()->route('login')->with('success', 'Registrasi berhasil! Silahkan login terlebih dahulu.');
+        return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
     }
 }

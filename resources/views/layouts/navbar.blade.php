@@ -4,7 +4,7 @@
 
       {{-- Logo Sekolah --}}
       <div class="logo d-flex align-items-center">
-        <img src="{{ asset('assets/img/nav-icon-bg.png') }}" alt="logo" style="height: 35px; width: 35px; border-radius: 50%; object-fit: cover;" class="me-2">
+        <img src="{{ asset('assets/img/nav-icon-bg.png') }}" alt="logo" style="height: 35px; width: 35px;" class="me-2">
         <h1 class="text-light m-0">
           <a href="/"><span>SMP MUHAMMADIYAH 1 ROWOKELE</span></a>
         </h1>

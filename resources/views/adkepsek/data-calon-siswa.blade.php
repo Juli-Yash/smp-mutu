@@ -39,13 +39,14 @@
                             <th class="text-center align-middle">Piagam</th>
                             <th class="text-center align-middle">KIP/PKH</th>
                             <th class="text-center align-middle">Status</th>
+                            <th class="text-center align-middle">Catatan</th>
                         </tr>
                     </thead>                    
                     <tbody>
                         @foreach($pendaftars as $index => $pendaftar)
                         <tr>
                             <td class="text-center align-middle">{{ $index + 1 }}</td>
-                            <td class="align-middle">{{ $pendaftar->nama }}</td>
+                            <td class="text-center align-middle">{{ $pendaftar->nama }}</td>
                             <td class="text-center align-middle">{{ $pendaftar->jenis_kelamin }}</td>
                             <td class="text-center align-middle">{{ $pendaftar->nisn }}</td>
                             <td class="text-center align-middle">{{ $pendaftar->asal_sekolah }}</td>
@@ -103,7 +104,16 @@
                                 @else
                                     <span class="inline-block px-2 py-1 text-xs font-semibold text-gray-800 bg-gray-200 rounded">{{ ucfirst($pendaftar->status) }}</span>
                                 @endif
-                            </td>                           
+                            </td>    
+                            
+                            <!-- Catatan Penolakan -->
+                            <td class="text-center align-middle">
+                                @if (strtolower($pendaftar->status) === 'ditolak' && $pendaftar->catatan_penolakan)
+                                    <span class="text-sm italic text-red-600">{{ $pendaftar->catatan_penolakan }}</span>
+                                @else
+                                    <span class="text-gray-400 italic">-</span>
+                                @endif
+                             </td>
                         </tr>
                         @endforeach
                     </tbody>                    

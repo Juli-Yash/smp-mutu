@@ -81,7 +81,7 @@
         <p>Rowokele, {{ now()->translatedFormat('d F Y') }}</p>
         <p><strong>Panitia PPDB</strong></p>
         <div class="signature">
-            <p><strong>( ....................................... )</strong></p>
+            <p><strong>Admin Verifikator: {{ $pendaftar->verified_by_name }}</strong></p>
         </div>
     </div>
 

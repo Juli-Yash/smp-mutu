@@ -24,6 +24,7 @@
         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
             Simpan Perubahan
         </button>
+        <a href="{{ route('admin.data-user.index') }}" class="btn btn-secondary">Batal</a>
     </form>
 </div>
 @endsection

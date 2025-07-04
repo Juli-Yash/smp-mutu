@@ -20,16 +20,15 @@
         <input type="password" name="password_confirmation" placeholder="Ulangi password" class="border rounded w-full p-2 mb-3" required>
 
         <label class="block mb-2 font-semibold">Role</label>
-        <select name="role" class="border rounded w-full p-2 mb-4" required>
+        <select name="role" class="border rounded w-full p-2 mb-3" required>
             <option value="" disabled selected>Pilih Role</option>
             <option value="admin">Admin</option>
             <option value="user">User</option>
             <option value="kepsek">Kepsek</option>
         </select>
 
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-            Simpan
-        </button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a href="{{ route('admin.data-user.index') }}" class="btn btn-secondary">Batal</a>
     </form>
 </div>
 @endsection

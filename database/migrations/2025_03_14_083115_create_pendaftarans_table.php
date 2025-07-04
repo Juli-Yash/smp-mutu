@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('agama', ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu']);
             $table->decimal('jarak_tempat_tinggal', 5, 2);
             $table->string('no_telp');
-            $table->enum('pilihan_ekskul', ['Pencak Silat', 'Hizbul Wathan', 'Futsal']);
+            $table->enum('pilihan_ekskul', ['Pencak Silat', 'Hizbul Wathan', 'Futsal', 'Kesenian']);
             $table->text('alamat');
             $table->decimal('nilai_rata_rata_skl', 5, 2);
 

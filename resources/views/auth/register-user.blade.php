@@ -49,23 +49,6 @@
 <body class="min-h-screen flex items-center justify-center bg-[#072ac8] bg-no-repeat text-gray-800 px-4">
 
     <div class="bg-white rounded-xl shadow-2xl w-full max-w-md p-8 fade-in-down soft-glow" data-aos="fade-up" data-aos-duration="1000">
-
-        @if (session('success'))
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Registrasi Berhasil!',
-                        text: '{{ session('success') }}',
-                        showConfirmButton: false,
-                        timer: 2500
-                    }).then(() => {
-                        window.location.href = "{{ route('login') }}";
-                    });
-                });
-            </script>
-        @endif
-    
         <!-- Header -->
         <div class="text-center mb-6">
             <h2 class="text-3xl font-bold text-blue-700">Selamat Datang</h2>

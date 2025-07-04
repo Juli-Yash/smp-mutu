@@ -39,6 +39,12 @@
                     <span class="text-yellow-600 font-bold">Menunggu Verifikasi</span>
                 @endif
             </div>
+            @if ($pendaftar->status === 'Ditolak')
+            <div>
+                <span class="font-semibold">Catatan Penolakan:</span>
+                <span class="text-red-600 italic">{{ $pendaftar->catatan_penolakan }}</span>
+            </div>
+            @endif                          
         </div>
 
         {{-- TINDAKAN BERIKUTNYA --}}

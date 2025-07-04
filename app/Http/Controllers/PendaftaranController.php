@@ -45,7 +45,7 @@ class PendaftaranController extends Controller
             'agama'                 => 'required|in:Islam,Kristen,Katolik,Hindu,Buddha,Konghucu',
             'jarak_tempat_tinggal'  => 'required|numeric|min:0',
             'no_telp'               => ['required', 'regex:/^(0|\+62)[0-9]{9,13}$/'],
-            'pilihan_ekskul'        => 'required|in:Pencak Silat,Hizbul Wathan,Futsal',
+            'pilihan_ekskul'        => 'required|in:Pencak Silat,Hizbul Wathan,Futsal,Kesenian',
             'alamat'                => 'required|string|max:500',
             'nilai_rata_rata_skl'   => 'required|numeric|min:0|max:100',
             'scan_skl'              => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
@@ -123,6 +123,7 @@ class PendaftaranController extends Controller
 
         $pendaftar = Pendaftaran::findOrFail($id);
         $pendaftar->status = $request->status;
+        $pendaftar->verified_by_name = auth()->user()->name;
         $pendaftar->save();
 
         // Kirim WhatsApp jika status Diterima atau Ditolak
@@ -220,14 +221,26 @@ class PendaftaranController extends Controller
     
         $pendaftar = Pendaftaran::findOrFail($id);
     
-        $data = $request->except([
-            'scan_skl', 'scan_akta', 'scan_kk', 'scan_piagam', 'scan_kip'
-        ]);
+        $data = $request->except(['scan_skl', 'scan_akta', 'scan_kk', 'scan_piagam', 'scan_kip']);
     
-        // Proses upload file jika ada
-        foreach (['scan_skl', 'scan_akta', 'scan_kk', 'scan_piagam', 'scan_kip'] as $field) {
+        // Folder berdasarkan field
+        $folderMap = [
+            'scan_skl' => 'skl',
+            'scan_akta' => 'akta',
+            'scan_kk' => 'kk',
+            'scan_piagam' => 'piagam',
+            'scan_kip' => 'kip',
+        ];
+    
+        foreach ($folderMap as $field => $folder) {
             if ($request->hasFile($field)) {
-                $data[$field] = $request->file($field)->store('uploads', 'public');
+                // Hapus file lama jika ada
+                if ($pendaftar->$field && \Storage::disk('public')->exists($pendaftar->$field)) {
+                    \Storage::disk('public')->delete($pendaftar->$field);
+                }
+    
+                // Simpan ke folder sesuai
+                $data[$field] = $request->file($field)->store("uploads/{$folder}", 'public');
             }
         }
     
@@ -235,5 +248,23 @@ class PendaftaranController extends Controller
     
         return redirect()->route('admin.pendaftar.edit', $id)->with('success', 'Data berhasil diperbarui.');
     }
+
+    public function destroy($id)
+    {
+        $pendaftar = Pendaftaran::findOrFail($id);
     
+        $fileFields = ['scan_skl', 'scan_akta', 'scan_kk', 'scan_piagam', 'scan_kip'];
+    
+        foreach ($fileFields as $field) {
+            $filePath = $pendaftar->$field;
+    
+            if ($filePath && Storage::disk('public')->exists($filePath)) {
+                Storage::disk('public')->delete($filePath);
+            }
+        }
+    
+        $pendaftar->delete();
+    
+        return redirect()->route('admin.pendaftar.index')->with('success', 'Data pendaftar berhasil dihapus.');
+    }
 }

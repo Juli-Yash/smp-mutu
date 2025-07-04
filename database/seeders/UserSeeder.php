@@ -16,9 +16,9 @@ class UserSeeder extends Seeder
     {
         // Admin
         User::create([
-            'name' => 'Agus Ariyanto',
+            'name' => 'Hokky Caraka',
             'email' => 'admin@ppdb.com',
-            'email_verified_at' => now(), // ✅ 
+            'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'role' => 'admin',
         ]);
@@ -27,16 +27,16 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Widiastuti',
             'email' => 'kepsek@ppdb.com',
-            'email_verified_at' => now(), // ✅
+            'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'role' => 'kepsek',
         ]);
 
         // Contoh Calon Siswa
         User::create([
-            'name' => 'Vinsensius Mustoyo',
+            'name' => 'Gregorius De Santos',
             'email' => 'siswa1@email.com',
-            'email_verified_at' => now(), // ✅
+            'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'role' => 'user',
         ]);

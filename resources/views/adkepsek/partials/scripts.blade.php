@@ -40,7 +40,7 @@
             if (result.isConfirmed) {
                 const form = document.getElementById(`form-status-${id}`);
                 const input = document.getElementById(`status-input-${id}`);
-                input.value = status; // harus 'diterima' atau 'ditolak'
+                input.value = status;
                 form.submit();
             }
         });

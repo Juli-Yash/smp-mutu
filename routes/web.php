@@ -64,6 +64,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::patch('/pendaftar/{id}/status', [PendaftaranController::class, 'updateStatus'])->name('admin.pendaftar.updateStatus');
     Route::get('/pendaftar/{id}/edit', [PendaftaranController::class, 'edit'])->name('admin.pendaftar.edit');
     Route::put('/pendaftar/{id}', [PendaftaranController::class, 'update'])->name('admin.pendaftar.update');
+    Route::delete('/admin/pendaftar/{id}', [PendaftaranController::class, 'destroy'])->name('admin.pendaftar.destroy');
 
     // Halaman tambahan
     Route::view('/data-admin', 'admin.data-admin')->name('admin.data-admin');

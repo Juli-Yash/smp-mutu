@@ -30,6 +30,7 @@ class Pendaftaran extends Model
         'scan_piagam',
         'scan_kip',
         'status',
+        'catatan_penolakan',
         'nama_ayah', 'pendidikan_ayah', 'pekerjaan_ayah', 'penghasilan_ayah',
         'nama_ibu', 'pendidikan_ibu', 'pekerjaan_ibu', 'penghasilan_ibu',
     ];

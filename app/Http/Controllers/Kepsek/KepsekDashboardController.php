@@ -90,7 +90,8 @@ class KepsekDashboardController extends Controller
             'scan_piagam',
             'scan_akta',
             'scan_skl',
-            'scan_kip'
+            'scan_kip',
+            'catatan_penolakan'
         )->get();
     
         return view('adkepsek.data-calon-siswa', compact('pendaftars'));
