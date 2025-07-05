@@ -58,8 +58,8 @@
 
             @elseif ($pendaftar->status == 'Diterima')
                 <p class="text-green-700 text-center flex flex-col items-center justify-center gap-2 mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10 -10 10z" />
                     </svg>
                     <span>
                         <strong>Selamat!</strong> Anda dinyatakan <strong>DITERIMA</strong>.<br>
@@ -68,30 +68,33 @@
                 </p>
                 <div class="text-center">
                     <a href="{{ route('siswa.surat.pdf', $pendaftar->id) }}" target="_blank"
-                    class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded inline-block">
+                    class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded shadow transition duration-300 inline-flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9V4h12v5M6 14H5a2 2 0 01-2-2V9a2 2 0 012-2h14a2 2 0 012 2v3a2 2 0 01-2 2h-1M6 14v5h12v-5" />
+                    </svg>
                         Cetak Surat Penerimaan
                     </a>
                 </div>
 
             @elseif ($pendaftar->status == 'Diproses')
                 <p class="text-yellow-500 text-center flex flex-col items-center justify-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10 -10 10z" />
                     </svg>
                     <span>
-                        Pendaftaran Anda sedang <strong>Diproses</strong>.<br>
-                        Mohon tunggu informasi selanjutnya dari panitia.
+                        Data Anda sedang dalam <strong>proses verifikasi</strong>.<br>
+                        Silakan tunggu informasi lebih lanjut dari panitia.
                     </span>
                 </p>
             
             @elseif ($pendaftar->status == 'Ditolak')
                 <p class="text-red-700 text-center flex flex-col items-center justify-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 12l3-3m-3 3l-3-3M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10 -10 10z" />
                     </svg>
                     <span>
                         <strong>Mohon maaf</strong>, Anda dinyatakan <strong>TIDAK LOLOS</strong>.<br>
-                        Jika ada pertanyaan, silakan hubungi panitia.
+                        Silakan hubungi panitia jika ada pertanyaan lebih lanjut.
                     </span>
                 </p>
             @endif
