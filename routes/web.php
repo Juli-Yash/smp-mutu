@@ -67,9 +67,6 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/admin/pendaftar/{id}', [PendaftaranController::class, 'destroy'])->name('admin.pendaftar.destroy');
 
     // Halaman tambahan
-    Route::view('/data-admin', 'admin.data-admin')->name('admin.data-admin');
-    Route::view('/jadwal', 'admin.jadwal')->name('admin.jadwal');
-    Route::view('/informasi', 'admin.informasi')->name('admin.informasi');
     Route::get('/laporan', [AdminLaporanController::class, 'laporan'])->name('admin.laporan');
     Route::get('/laporan/cetak', [AdminLaporanController::class, 'cetak'])->name('admin.laporan.cetak');
     Route::get('/export-excel', [AdminDashboardController::class, 'exportExcel'])->name('admin.export.excel');
@@ -84,11 +81,11 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     
     // Halaman Jadwal
     Route::get('/jadwal', [JadwalController::class, 'index'])->name('admin.jadwal.index');
-    Route::get('/jadwal/create', [JadwalController::class, 'create'])->name('jadwal.create');
-    Route::post('/jadwal', [JadwalController::class, 'store'])->name('jadwal.store');
-    Route::get('/jadwal/{id}/edit', [JadwalController::class, 'edit'])->name('jadwal.edit');
-    Route::put('/jadwal/{id}', [JadwalController::class, 'update'])->name('jadwal.update');
-    Route::delete('/jadwal/{id}', [JadwalController::class, 'destroy'])->name('jadwal.destroy');
+    Route::get('/jadwal/create', [JadwalController::class, 'create'])->name('admin.jadwal.create');
+    Route::post('/jadwal', [JadwalController::class, 'store'])->name('admin.jadwal.store');
+    Route::get('/jadwal/{id}/edit', [JadwalController::class, 'edit'])->name('admin.jadwal.edit');
+    Route::put('/jadwal/{id}', [JadwalController::class, 'update'])->name('admin.jadwal.update');
+    Route::delete('/jadwal/{id}', [JadwalController::class, 'destroy'])->name('admin.jadwal.destroy');
 
     // CRUD Data User
     Route::get('/data-user', [UserAdminController::class, 'index'])->name('admin.data-user.index');

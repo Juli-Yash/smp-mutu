@@ -119,14 +119,20 @@ class PendaftaranController extends Controller
     {
         $request->validate([
             'status' => 'required|in:Diterima,Ditolak,Diproses',
+            'catatan_penolakan' => 'nullable|string|max:1000',
         ]);
 
         $pendaftar = Pendaftaran::findOrFail($id);
         $pendaftar->status = $request->status;
         $pendaftar->verified_by_name = auth()->user()->name;
+
+        if ($request->status === 'Ditolak') {
+            $pendaftar->catatan_penolakan = $request->catatan_penolakan;
+        } else {
+            $pendaftar->catatan_penolakan = null;
+        }
         $pendaftar->save();
 
-        // Kirim WhatsApp jika status Diterima atau Ditolak
         if (in_array($request->status, ['Diterima', 'Ditolak'])) {
             $nama = $pendaftar->nama;
             $nisn = $pendaftar->nisn;
@@ -222,8 +228,7 @@ class PendaftaranController extends Controller
         $pendaftar = Pendaftaran::findOrFail($id);
     
         $data = $request->except(['scan_skl', 'scan_akta', 'scan_kk', 'scan_piagam', 'scan_kip']);
-    
-        // Folder berdasarkan field
+
         $folderMap = [
             'scan_skl' => 'skl',
             'scan_akta' => 'akta',
@@ -234,12 +239,11 @@ class PendaftaranController extends Controller
     
         foreach ($folderMap as $field => $folder) {
             if ($request->hasFile($field)) {
-                // Hapus file lama jika ada
+
                 if ($pendaftar->$field && \Storage::disk('public')->exists($pendaftar->$field)) {
                     \Storage::disk('public')->delete($pendaftar->$field);
                 }
     
-                // Simpan ke folder sesuai
                 $data[$field] = $request->file($field)->store("uploads/{$folder}", 'public');
             }
         }
@@ -265,6 +269,6 @@ class PendaftaranController extends Controller
     
         $pendaftar->delete();
     
-        return redirect()->route('admin.pendaftar.index')->with('success', 'Data pendaftar berhasil dihapus.');
+        return redirect()->route('admin.hasil')->with('success', 'Data pendaftar berhasil dihapus.');
     }
 }

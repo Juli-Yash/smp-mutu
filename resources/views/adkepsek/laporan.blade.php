@@ -5,7 +5,7 @@
 @section('content')
 <section class="p-3 mt-2">
     <div class="bg-white rounded shadow p-6">
-        <h1 class="text-xl font-bold mb-2">Dashboard Kepala Sekolah</h1>
+        <h1 class="text-2xl font-bold mb-2">Dashboard Kepala Sekolah</h1>
         <p class="text-gray-700">Halo, {{ auth()->user()->name }} — Anda login sebagai 
             <span class="font-semibold">{{ auth()->user()->role }}</span>
         </p>

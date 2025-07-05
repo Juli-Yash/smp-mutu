@@ -86,7 +86,6 @@
                 title: `Yakin ingin ${label} pendaftar ini?`,
                 html: `
                     <div class="form-group text-start">
-                        <label for="catatan" class="form-label fw-semibold">Catatan Penolakan:</label>
                         <textarea id="catatan" class="form-control" rows="4" placeholder="Tulis alasan penolakan di sini..."></textarea>
                     </div>
                 `,

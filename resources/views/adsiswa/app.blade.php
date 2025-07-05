@@ -14,7 +14,7 @@
         
         <!-- Sidebar -->
         <aside
-            class="fixed inset-y-0 left-0 z-30 w-64 bg-white shadow-md overflow-y-auto transform md:translate-x-0 transition-transform duration-300 ease-in-out"
+            class="fixed inset-y-0 left-0 z-30 w-72 bg-white shadow-md overflow-y-auto transform md:translate-x-0 transition-transform duration-300 ease-in-out"
             :class="{ '-translate-x-full': !sidebarOpen, 'translate-x-0': sidebarOpen }">
             @include('adsiswa.partials.sidebar')
         </aside>
@@ -28,7 +28,7 @@
         </div>
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col min-h-screen md:ml-64">
+        <div class="flex-1 flex flex-col min-h-screen md:ml-72">
             <!-- Header -->
             <header class="bg-white shadow-md p-4 sticky top-0 z-10 flex items-center justify-between">
                 <!-- Hamburger (tampil di mobile) -->

@@ -57,27 +57,42 @@
                 </div>
 
             @elseif ($pendaftar->status == 'Diterima')
-                <p class="text-green-700 mb-3 text-center">
-                    🎉 Selamat! Anda dinyatakan <strong>DITERIMA</strong>.<br>
-                    Silakan cetak bukti pendaftaran dan ikuti tahap selanjutnya.
+                <p class="text-green-700 text-center flex flex-col items-center justify-center gap-2 mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>
+                        <strong>Selamat!</strong> Anda dinyatakan <strong>DITERIMA</strong>.<br>
+                        Silakan cetak bukti pendaftaran dan ikuti tahap selanjutnya.
+                    </span>
                 </p>
                 <div class="text-center">
                     <a href="{{ route('siswa.surat.pdf', $pendaftar->id) }}" target="_blank"
-                       class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded inline-block">
+                    class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded inline-block">
                         Cetak Surat Penerimaan
                     </a>
                 </div>
 
             @elseif ($pendaftar->status == 'Diproses')
-                <p class="text-yellow-500 text-center">
-                    ⏳ Pendaftaran Anda sedang <strong>Diproses</strong>.<br>
-                    Mohon tunggu informasi selanjutnya dari panitia.
+                <p class="text-yellow-500 text-center flex flex-col items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>
+                        Pendaftaran Anda sedang <strong>Diproses</strong>.<br>
+                        Mohon tunggu informasi selanjutnya dari panitia.
+                    </span>
                 </p>
-
+            
             @elseif ($pendaftar->status == 'Ditolak')
-                <p class="text-red-700 text-center">
-                    ❌ Mohon maaf, Anda dinyatakan <strong>TIDAK LOLOS</strong> dalam seleksi.<br>
-                    Jika ada pertanyaan, silakan hubungi panitia.
+                <p class="text-red-700 text-center flex flex-col items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    <span>
+                        <strong>Mohon maaf</strong>, Anda dinyatakan <strong>TIDAK LOLOS</strong>.<br>
+                        Jika ada pertanyaan, silakan hubungi panitia.
+                    </span>
                 </p>
             @endif
         </div>

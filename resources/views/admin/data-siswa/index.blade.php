@@ -5,7 +5,7 @@
 @section('content')
 <section class="p-3 mt-2">
     <div class="bg-white rounded shadow p-6">
-        <h1 class="text-xl font-bold mb-2">Dashboard Admin</h1>
+        <h1 class="text-2xl font-bold mb-2">Dashboard Admin</h1>
         <p class="text-gray-700">Halo, {{ auth()->user()->name }} — Anda login sebagai <span class="font-semibold">{{ auth()->user()->role }}</span></p>
     </div>
 
@@ -40,6 +40,7 @@
                             <th class="text-center align-middle">KIP/PKH</th>
                             <th class="text-center align-middle">Status</th>
                             <th class="text-center align-middle">Catatan</th>
+                            <th class="text-center align-middle">Verifikator</th>
                             <th class="text-center align-middle">Aksi</th>
                         </tr>
                     </thead>                    
@@ -112,8 +113,15 @@
                                 @if (strtolower($pendaftar->status) === 'ditolak' && $pendaftar->catatan_penolakan)
                                     <span class="text-sm italic text-red-600">{{ $pendaftar->catatan_penolakan }}</span>
                                 @else
-                                    <span class="text-gray-400 italic">-</span>
+                                    <span>-</span>
                                 @endif
+                            </td>
+
+                            <!-- Verifikator Data -->
+                            <td class="text-center align-middle">
+                                <span class="text-sm italic">
+                                    {{ $pendaftar->verified_by_name ?? '-' }}
+                                </span>
                             </td>
 
                             <!-- Aksi -->

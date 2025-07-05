@@ -7,7 +7,7 @@
     <h2 class="text-xl font-bold mb-4">Tambah Jadwal</h2>
 
     <div class="bg-white shadow rounded p-4">
-        <form action="{{ route('jadwal.store') }}" method="POST" class="space-y-4">
+        <form action="{{ route('admin.jadwal.store') }}" method="POST" class="space-y-4">
             @csrf
             <div>
                 <label>Tahapan</label>

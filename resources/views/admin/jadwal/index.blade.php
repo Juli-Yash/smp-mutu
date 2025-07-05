@@ -6,7 +6,7 @@
 <section class="p-3 mt-2">
     <!-- Header -->
     <div class="bg-white rounded shadow p-6 mb-6">
-        <h1 class="text-xl font-bold mb-2">Dashboard Admin</h1>
+        <h1 class="text-2xl font-bold mb-2">Dashboard Admin</h1>
         <p class="text-gray-700">
             Halo, {{ auth()->user()->name }} — Anda login sebagai 
             <span class="font-semibold">{{ auth()->user()->role }}</span>
@@ -17,7 +17,7 @@
 
     <!-- Tombol Tambah Jadwal -->
     <div class="flex justify-between items-center mb-4">
-        <a href="{{ route('jadwal.create') }}" class="min-w-[200px] text-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+        <a href="{{ route('admin.jadwal.create') }}" class="min-w-[200px] text-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
             + Tambah Jadwal
         </a>
     </div>
@@ -48,14 +48,14 @@
                             <td class="py-2 px-4 border">
                                 <div class="flex justify-center items-center gap-2">
                                     <!-- Edit -->
-                                    <a href="{{ route('jadwal.edit', $jadwal->id) }}"
+                                    <a href="{{ route('admin.jadwal.edit', $jadwal->id) }}"
                                        class="btn btn-sm btn-warning"
                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Jadwal">
                                         <i class="fas fa-edit"></i>
                                     </a>
                             
                                     <!-- Hapus -->
-                                    <form id="delete-form-{{ $jadwal->id }}" action="{{ route('jadwal.destroy', $jadwal->id) }}" method="POST">
+                                    <form id="delete-form-{{ $jadwal->id }}" action="{{ route('admin.jadwal.destroy', $jadwal->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="button"

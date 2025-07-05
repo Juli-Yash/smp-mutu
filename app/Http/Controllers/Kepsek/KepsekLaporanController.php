@@ -10,13 +10,11 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class KepsekLaporanController extends Controller
 {
-    // Tampilkan halaman form filter laporan
     public function laporan()
     {
         return view('adkepsek.laporan');
     }
 
-    // Proses cetak laporan berdasarkan filter
     public function cetak(Request $request)
     {
         $periode = $request->periode;
@@ -26,17 +24,17 @@ class KepsekLaporanController extends Controller
         $query = Pendaftaran::query();
     
         if ($periode === 'harian') {
-            // Filter berdasarkan tanggal tertentu
+
             $tanggal = $request->tanggal;
             if ($tanggal) {
                 $query->whereDate('created_at', $tanggal);
             }
         } elseif ($periode === 'mingguan') {
-            // Filter berdasarkan minggu (ISO week)
-            $minggu = $request->minggu; // format: 2025-W24
+
+            $minggu = $request->minggu;
             if ($minggu) {
                 try {
-                    // Parsing awal dan akhir minggu
+
                     $startOfWeek = Carbon::parse($minggu)->startOfWeek(Carbon::MONDAY);
                     $endOfWeek = Carbon::parse($minggu)->endOfWeek(Carbon::SUNDAY);
                     $query->whereBetween('created_at', [$startOfWeek, $endOfWeek]);
@@ -45,13 +43,13 @@ class KepsekLaporanController extends Controller
                 }
             }
         } elseif ($periode === 'bulanan') {
-            // Filter berdasarkan bulan dan tahun
+
             $bulan = $request->bulan;
             if ($bulan && $tahun) {
                 $query->whereYear('created_at', $tahun)->whereMonth('created_at', $bulan);
             }
         } elseif ($periode === 'tahunan') {
-            // Filter berdasarkan tahun saja
+
             if ($tahun) {
                 $query->whereYear('created_at', $tahun);
             }

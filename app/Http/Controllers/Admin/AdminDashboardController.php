@@ -93,7 +93,8 @@ class AdminDashboardController extends Controller
             'scan_akta',
             'scan_skl',
             'scan_kip',
-            'catatan_penolakan'
+            'catatan_penolakan',
+            'verified_by_name'
         )->get();
     
         return view('admin.data-siswa.index', compact('pendaftars'));

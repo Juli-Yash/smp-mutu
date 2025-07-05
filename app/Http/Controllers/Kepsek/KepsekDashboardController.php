@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Kepsek;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Pendaftaran;
+use Carbon\Carbon;
 use App\Exports\PendaftaranExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KepsekDashboardController extends Controller
 {
@@ -16,17 +17,14 @@ class KepsekDashboardController extends Controller
      */
     public function index(Request $request)
     {
-        // Auth
         $user = Auth::user();
 
         if ($user->role !== 'kepsek') {
             abort(403, 'Unauthorized');
         }
 
-        // Query awal
         $query = Pendaftaran::query();
     
-        // Filter berdasarkan request input (jika ada)
         if ($request->filled('jenis_kelamin')) {
             $query->where('jenis_kelamin', $request->jenis_kelamin);
         }
@@ -35,20 +33,16 @@ class KepsekDashboardController extends Controller
             $query->where('status', $request->status);
         }
     
-        // Ambil hasil query yang telah difilter
         $filteredData = $query->get();
     
-        // Hitung total berdasarkan hasil filter
         $totalPendaftar = $filteredData->count();
         $diterima = $filteredData->where('status', 'Diterima')->count();
         $ditolak = $filteredData->where('status', 'Ditolak')->count();
         $diproses = $filteredData->where('status', 'Diproses')->count();
     
-        // Hitung berdasarkan jenis kelamin
         $jumlahLaki = $filteredData->where('jenis_kelamin', 'Laki-laki')->count();
         $jumlahPerempuan = $filteredData->where('jenis_kelamin', 'Perempuan')->count();
     
-        // Hitung jumlah pendaftar per asal sekolah
         $asalSekolahData = $filteredData
             ->groupBy('asal_sekolah')
             ->map(function ($items, $key) {
@@ -56,9 +50,8 @@ class KepsekDashboardController extends Controller
                     'asal_sekolah' => $key,
                     'total' => $items->count()
                 ];
-            })->values(); // ubah ke bentuk numerik array agar bisa dipakai di Chart.js
+            })->values();
     
-        // Ambil data peserta terbaik berdasarkan skor_akhir (sudah difilter)
         $pesertaTerbaik = $filteredData
             ->sortByDesc('skor_akhir')
             ->values();
@@ -91,7 +84,8 @@ class KepsekDashboardController extends Controller
             'scan_akta',
             'scan_skl',
             'scan_kip',
-            'catatan_penolakan'
+            'catatan_penolakan',
+            'verified_by_name'
         )->get();
     
         return view('adkepsek.data-calon-siswa', compact('pendaftars'));
@@ -99,6 +93,9 @@ class KepsekDashboardController extends Controller
 
     public function exportExcel()
     {
-        return Excel::download(new PendaftaranExport, 'data_pendaftar.xlsx');
+        $timestamp = Carbon::now()->format('Ymd_His');
+        $filename = 'Rekap_Pendaftar_' . $timestamp . '.xlsx';
+    
+        return Excel::download(new PendaftaranExport, $filename);
     }
 }

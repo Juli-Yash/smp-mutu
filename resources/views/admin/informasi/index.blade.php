@@ -6,7 +6,7 @@
 <section class="p-3 mt-2">
     <!-- Header Dashboard -->
     <div class="bg-white rounded shadow p-6 mb-6">
-        <h1 class="text-xl font-bold mb-2">Dashboard Admin</h1>
+        <h1 class="text-2xl font-bold mb-2">Dashboard Admin</h1>
         <p class="text-gray-700">
             Halo, {{ auth()->user()->name }} — Anda login sebagai 
             <span class="font-semibold">{{ auth()->user()->role }}</span>

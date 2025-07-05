@@ -17,13 +17,15 @@ class PendaftaranExport implements FromCollection, WithHeadings
                 'nisn' => $item->nisn,
                 'asal_sekolah' => $item->asal_sekolah,
                 'jenis_kelamin' => $item->jenis_kelamin,
-                'nilai_skl' => $item->rata_rata_nilai_skl,
+                'nilai_skl' => $item->nilai_rata_rata_skl,
                 'skl' => $this->checkFileExists($item->scan_skl),
                 'akta' => $this->checkFileExists($item->scan_akta),
                 'kk' => $this->checkFileExists($item->scan_kk),
                 'piagam' => $this->checkFileExists($item->scan_piagam),
                 'kip' => $this->checkFileExists($item->scan_kip),
                 'status' => $item->status,
+                'catatan_penolakan' => $item->catatan_penolakan,
+                'verified_by_name' => $item->verified_by_name,
             ];
         });
     }
@@ -42,6 +44,8 @@ class PendaftaranExport implements FromCollection, WithHeadings
             'Piagam',
             'KIP/PKH',
             'Status',
+            'Catatan Penolakan',
+            'Verifikator',
         ];
     }
 

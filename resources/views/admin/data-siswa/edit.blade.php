@@ -8,9 +8,10 @@
     </div>
     <hr class="border-t-2 border-gray-800 my-6">
 
-    <a href="{{ route('admin.hasil') }}" class="btn btn-secondary mb-4" style="background-color: #4b5563; border-color: #374151;">
+    <a href="{{ route('admin.hasil') }}"
+        class="inline-block mb-4 px-4 py-2 rounded text-white bg-gray-600 hover:bg-gray-700 active:bg-gray-800 transition duration-200 shadow-md">
         ← Kembali
-    </a>
+    </a> 
 
     <div class="card shadow-sm p-4">
         <h2 class="mb-4 text-center fw-bold">Form Edit Data Pendaftar</h2>

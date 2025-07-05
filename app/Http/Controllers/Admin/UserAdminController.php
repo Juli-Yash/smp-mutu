@@ -25,14 +25,14 @@ class UserAdminController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'role' => 'required|in:admin,user,kepsek', // role bisa dipilih
+            'role' => 'required|in:admin,user,kepsek',
             'password' => 'required|min:6|confirmed',
         ]);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'role' => $request->role, // Role disimpan sesuai input
+            'role' => $request->role,
             'password' => bcrypt($request->password),
         ]);
 
