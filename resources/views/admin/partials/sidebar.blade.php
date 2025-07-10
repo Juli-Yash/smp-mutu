@@ -10,7 +10,6 @@
 </style>
 
 <aside class="w-72 bg-gray-900 text-white min-h-screen p-6 shadow-lg border-r border-gray-700">
-    <!-- Logo / Header -->
     <div class="mb-10 mt-3 text-center">
         <h2 class="text-2xl font-bold flex items-center justify-center gap-2">
             <span class="w-3 h-3 bg-green-400 rounded-full animate-pulse-dot"></span>
@@ -20,13 +19,14 @@
 
     <div class="border-t border-gray-700 mb-6"></div>
 
-    <!-- Menu -->
     <ul class="space-y-3 text-[15px] font-medium">
 
-        <!-- Dashboard -->
+        <li class="text-gray-400 text-xs uppercase tracking-wider font-semibold mt-6 mb-2">
+            Halaman Utama
+        </li>
         <li>
             <a href="{{ route('admin.dashboard') }}"
-               class="flex items-center gap-2 py-2 px-4 rounded transition-all duration-300
+               class="flex items-center gap-2 py-2 pl-4 pr-4 rounded transition-all duration-300
                {{ request()->routeIs('admin.dashboard') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
                      viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -36,10 +36,14 @@
             </a>
         </li>
 
-        <!-- Data Calon Siswa -->
+        <div class="border-t border-gray-700 my-4"></div>
+
+        <li class="text-gray-400 text-xs uppercase tracking-wider font-semibold mt-6 mb-2">
+            Manajemen Data PPDB
+        </li>
         <li x-data="{ open: {{ request()->routeIs('admin.hasil') || request()->routeIs('admin.pendaftar.edit') ? 'true' : 'false' }} }">
             <button @click="open = !open"
-                class="w-full flex items-center justify-between py-2 px-4 rounded transition-all duration-300
+                class="w-full flex items-center justify-between py-2 pl-4 pr-4 rounded transition-all duration-300
                 {{ request()->routeIs('admin.hasil') || request()->routeIs('admin.pendaftar.edit') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                 <div class="flex items-center gap-x-2 min-w-0">
                     <svg class="w-5 h-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -49,9 +53,9 @@
                     <span class="whitespace-nowrap overflow-hidden">Data Calon Siswa</span>
                 </div>
                 <svg class="w-5 h-5 transform transition-transform duration-300 flex-shrink-0"
-                     :class="{ 'rotate-180': open }"
-                     xmlns="http://www.w3.org/2000/svg" fill="none"
-                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    :class="{ 'rotate-180': open }"
+                    xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
                 </svg>
             </button>
@@ -59,14 +63,14 @@
             <ul x-show="open" x-transition class="ml-6 mt-2 space-y-2 text-sm">
                 <li>
                     <a href="{{ route('admin.hasil') }}"
-                       class="block py-2 px-4 rounded 
-                       {{ request()->routeIs('admin.hasil') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                        class="block py-2 pl-4 pr-4 rounded
+                        {{ request()->routeIs('admin.hasil') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                         Daftar Calon Siswa
                     </a>
                 </li>
                 @if(request()->routeIs('admin.pendaftar.edit'))
                 <li>
-                    <a href="#" class="block py-2 px-4 rounded bg-gray-700 font-semibold text-white">
+                    <a href="#" class="block py-2 pl-4 pr-4 rounded bg-gray-700 font-semibold text-white">
                         Edit Data
                     </a>
                 </li>
@@ -74,55 +78,9 @@
             </ul>
         </li>
 
-        <!-- Data User -->
-        <li x-data="{ open: {{ request()->is('admin/data-user*') ? 'true' : 'false' }} }">
-            <button @click="open = !open"
-                class="w-full flex items-center justify-between py-2 px-4 rounded transition-all duration-300
-                {{ request()->is('admin/data-user*') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
-                <div class="flex items-center gap-x-2 min-w-0">
-                    <svg class="w-5 h-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none"
-                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M5.121 17.804A4.992 4.992 0 014 14V9a4 4 0 014-4h8a4 4 0 014 4v5a4.992 4.992 0 01-1.121 3.804M12 14v6"/>
-                    </svg>
-                    <span class="truncate whitespace-nowrap overflow-hidden">Data User</span>
-                </div>
-                <svg class="w-5 h-5 transform transition-transform duration-300 flex-shrink-0"
-                     :class="{ 'rotate-180': open }"
-                     xmlns="http://www.w3.org/2000/svg" fill="none"
-                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                </svg>
-            </button>
-            <ul x-show="open" x-transition class="ml-6 mt-2 space-y-2 text-sm">
-                <li>
-                    <a href="{{ route('admin.data-user.index') }}"
-                       class="block py-2 px-4 rounded
-                       {{ request()->routeIs('admin.data-user.index') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
-                        Daftar User
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.data-user.create') }}"
-                       class="block py-2 px-4 rounded
-                       {{ request()->routeIs('admin.data-user.create') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
-                        Tambah User
-                    </a>
-                </li>
-                @if(request()->routeIs('admin.data-user.edit'))
-                <li>
-                    <a href="#" class="block py-2 px-4 rounded bg-gray-700 font-semibold text-white">
-                        Edit User
-                    </a>
-                </li>
-                @endif
-            </ul>
-        </li>
-
-        <!-- Jadwal PPDB -->
         <li x-data="{ open: {{ request()->is('admin/jadwal*') ? 'true' : 'false' }} }">
             <button @click="open = !open"
-                class="w-full flex items-center justify-between py-2 px-4 rounded transition-all duration-300
+                class="w-full flex items-center justify-between py-2 pl-4 pr-4 rounded transition-all duration-300
                 {{ request()->is('admin/jadwal*') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                 <div class="flex items-center gap-x-2 min-w-0">
                     <svg class="w-5 h-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -133,30 +91,30 @@
                     <span class="truncate whitespace-nowrap overflow-hidden">Jadwal PPDB</span>
                 </div>
                 <svg class="w-5 h-5 transform transition-transform duration-300 flex-shrink-0"
-                     :class="{ 'rotate-180': open }"
-                     xmlns="http://www.w3.org/2000/svg" fill="none"
-                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    :class="{ 'rotate-180': open }"
+                    xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
                 </svg>
             </button>
             <ul x-show="open" x-transition class="ml-6 mt-2 space-y-2 text-sm">
                 <li>
                     <a href="{{ route('admin.jadwal.index') }}"
-                       class="block py-2 px-4 rounded
-                       {{ request()->routeIs('admin.jadwal.index') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                        class="block py-2 pl-4 pr-4 rounded
+                        {{ request()->routeIs('admin.jadwal.index') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                         Daftar Jadwal
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('admin.jadwal.create') }}"
-                       class="block py-2 px-4 rounded
-                       {{ request()->routeIs('admin.jadwal.create') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                        class="block py-2 pl-4 pr-4 rounded
+                        {{ request()->routeIs('admin.jadwal.create') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                         Tambah Jadwal
                     </a>
                 </li>
                 @if(request()->routeIs('admin.jadwal.edit'))
                 <li>
-                    <a href="#" class="block py-2 px-4 rounded bg-gray-700 font-semibold text-white">
+                    <a href="#" class="block py-2 pl-4 pr-4 rounded bg-gray-700 font-semibold text-white">
                         Edit Jadwal
                     </a>
                 </li>
@@ -164,10 +122,9 @@
             </ul>
         </li>
 
-        <!-- Informasi Sekolah -->
         <li x-data="{ open: {{ request()->is('admin/informasi*') ? 'true' : 'false' }} }">
             <button @click="open = !open"
-                class="w-full flex items-center justify-between py-2 px-4 rounded transition-all duration-300
+                class="w-full flex items-center justify-between py-2 pl-4 pr-4 rounded transition-all duration-300
                 {{ request()->is('admin/informasi*') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                 <div class="flex items-center gap-x-2 min-w-0">
                     <svg class="w-5 h-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -178,30 +135,30 @@
                     <span class="truncate whitespace-nowrap overflow-hidden">Informasi Sekolah</span>
                 </div>
                 <svg class="w-5 h-5 transform transition-transform duration-300 flex-shrink-0"
-                     :class="{ 'rotate-180': open }"
-                     xmlns="http://www.w3.org/2000/svg" fill="none"
-                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    :class="{ 'rotate-180': open }"
+                    xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
                 </svg>
             </button>
             <ul x-show="open" x-transition class="ml-6 mt-2 space-y-2 text-sm">
                 <li>
                     <a href="{{ route('admin.informasi.index') }}"
-                       class="block py-2 px-4 rounded
-                       {{ request()->routeIs('admin.informasi.index') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                        class="block py-2 pl-4 pr-4 rounded
+                        {{ request()->routeIs('admin.informasi.index') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                         Daftar Informasi
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('admin.informasi.create') }}"
-                       class="block py-2 px-4 rounded
-                       {{ request()->routeIs('admin.informasi.create') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                        class="block py-2 pl-4 pr-4 rounded
+                        {{ request()->routeIs('admin.informasi.create') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                         Tambah Informasi
                     </a>
                 </li>
                 @if(request()->routeIs('admin.informasi.edit'))
                 <li>
-                    <a href="#" class="block py-2 px-4 rounded bg-gray-700 font-semibold text-white">
+                    <a href="#" class="block py-2 pl-4 pr-4 rounded bg-gray-700 font-semibold text-white">
                         Edit Informasi
                     </a>
                 </li>
@@ -209,10 +166,9 @@
             </ul>
         </li>
 
-        <!-- Cetak Laporan -->
         <li>
             <a href="{{ route('admin.laporan') }}"
-               class="flex items-center gap-2 py-2 px-4 rounded transition-all duration-300
+               class="flex items-center gap-2 py-2 pl-4 pr-4 rounded transition-all duration-300
                {{ request()->routeIs('admin.laporan') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
                      viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -223,10 +179,58 @@
             </a>
         </li>
 
-        <!-- Profil -->
+        <div class="border-t border-gray-700 my-4"></div>
+
+        <li class="text-gray-400 text-xs uppercase tracking-wider font-semibold mt-6 mb-2">
+            Pengaturan Akun
+        </li>
+        <li x-data="{ open: {{ request()->is('admin/data-user*') ? 'true' : 'false' }} }">
+            <button @click="open = !open"
+                class="w-full flex items-center justify-between py-2 pl-4 pr-4 rounded transition-all duration-300
+                {{ request()->is('admin/data-user*') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                <div class="flex items-center gap-x-2 min-w-0">
+                    <svg class="w-5 h-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none"
+                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M5.121 17.804A4.992 4.992 0 014 14V9a4 4 0 014-4h8a4 4 0 014 4v5a4.992 4.992 0 01-1.121 3.804M12 14v6"/>
+                    </svg>
+                    <span class="truncate whitespace-nowrap overflow-hidden">Manajemen User</span>
+                </div>
+                <svg class="w-5 h-5 transform transition-transform duration-300 flex-shrink-0"
+                    :class="{ 'rotate-180': open }"
+                    xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+            <ul x-show="open" x-transition class="ml-6 mt-2 space-y-2 text-sm">
+                <li>
+                    <a href="{{ route('admin.data-user.index') }}"
+                        class="block py-2 pl-4 pr-4 rounded
+                        {{ request()->routeIs('admin.data-user.index') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                        Daftar User
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.data-user.create') }}"
+                        class="block py-2 pl-4 pr-4 rounded
+                        {{ request()->routeIs('admin.data-user.create') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                        Tambah User
+                    </a>
+                </li>
+                @if(request()->routeIs('admin.data-user.edit'))
+                <li>
+                    <a href="#" class="block py-2 pl-4 pr-4 rounded bg-gray-700 font-semibold text-white">
+                        Edit User
+                    </a>
+                </li>
+                @endif
+            </ul>
+        </li>
+
         <li>
             <a href="{{ route('profile.edit') }}"
-               class="flex items-center gap-2 py-2 px-4 rounded transition-all duration-300
+               class="flex items-center gap-2 py-2 pl-4 pr-4 rounded transition-all duration-300
                {{ request()->routeIs('profile.edit') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
                      viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -236,5 +240,4 @@
                 Profil
             </a>
         </li>
-    </ul>
 </aside>

@@ -106,12 +106,17 @@
             </div>
             {{-- Tombol Cetak --}}
             @if ($pendaftar->status === 'Diterima')
-                <div class="mt-6 flex justify-center">
-                    <a href="{{ route('siswa.berkas.pdf', $pendaftar->id) }}" target="_blank"
-                        class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded shadow transition duration-300">
-                        Cetak Berkas
-                    </a>
-                </div>
+            <div class="mt-6 flex justify-center">
+                <a href="{{ route('siswa.berkas.pdf', $pendaftar->id) }}" target="_blank"
+                    class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded shadow transition duration-300 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 9V4h12v5M6 14H5a2 2 0 01-2-2V9a2 2 0 012-2h14a2 2 0 012 2v3a2 2 0 01-2 2h-1M6 14v5h12v-5" />
+                    </svg>
+                    Cetak Berkas
+                </a>
+            </div>            
             @else
                 <div class="mt-6 text-center text-sm text-gray-500 italic">
                     Berkas hanya bisa dicetak setelah Anda dinyatakan <span class="font-semibold text-green-600">Diterima</span>.

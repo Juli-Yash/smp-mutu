@@ -73,11 +73,15 @@
                 </select>
             </div>            
         </div>
-
+        
         {{-- Tombol Submit --}}
-        <div class="text-center pt-4">
-            <button type="submit" class="btn btn-success px-4">
-                <i class="bi bi-printer"></i> Cetak Laporan
+        <div class="pt-4 d-flex justify-content-center">
+            <button type="submit" class="btn btn-success px-4 w-100 w-md-auto d-flex align-items-center justify-content-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 20px; height: 20px;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M6 9V4h12v5M6 14H5a2 2 0 01-2-2V9a2 2 0 012-2h14a2 2 0 012 2v3a2 2 0 01-2 2h-1M6 14v5h12v-5" />
+                </svg>
+                Cetak Laporan
             </button>
         </div>
     </form>

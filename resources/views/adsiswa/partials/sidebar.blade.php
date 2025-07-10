@@ -10,7 +10,6 @@
 </style>
 
 <aside class="w-72 bg-gray-900 text-white min-h-screen p-6 shadow-lg border-r border-gray-700">
-    <!-- Header -->
     <div class="mb-10 mt-3 text-center">
         <h2 class="text-2xl font-bold flex items-center justify-center gap-2">
             <span class="w-3 h-3 bg-green-400 rounded-full animate-pulse-dot"></span>
@@ -20,13 +19,14 @@
 
     <div class="border-t border-gray-700 mb-6"></div>
 
-    <!-- Menu -->
     <ul class="space-y-3 text-[15px] font-medium">
 
-        <!-- Dashboard -->
+        <li class="text-gray-400 text-xs uppercase tracking-wider font-semibold mt-6 mb-2">
+            Halaman Utama
+        </li>
         <li>
             <a href="{{ route('siswa.dashboard') }}"
-               class="flex items-center gap-2 py-2 px-4 rounded transition-all duration-300
+               class="flex items-center gap-2 py-2 pl-4 pr-4 rounded transition-all duration-300
                {{ request()->routeIs('siswa.dashboard') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
                      viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -37,10 +37,14 @@
             </a>
         </li>
 
-        <!-- Form Pendaftaran -->
+        <div class="border-t border-gray-700 my-4"></div>
+
+        <li class="text-gray-400 text-xs uppercase tracking-wider font-semibold mt-6 mb-2">
+            Manajemen Data PPDB
+        </li>
         <li>
             <a href="{{ route('daftar.create') }}"
-               class="flex items-center gap-2 py-2 px-4 rounded transition-all duration-300
+               class="flex items-center gap-2 py-2 pl-4 pr-4 rounded transition-all duration-300
                {{ request()->routeIs('daftar.create') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
                      viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -50,10 +54,9 @@
             </a>
         </li>
 
-        <!-- Status Pendaftaran -->
         <li>
             <a href="{{ route('siswa.status') }}"
-               class="flex items-center gap-2 py-2 px-4 rounded transition-all duration-300
+               class="flex items-center gap-2 py-2 pl-4 pr-4 rounded transition-all duration-300
                {{ request()->routeIs('siswa.status') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
                      viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -64,24 +67,22 @@
             </a>
         </li>
 
-        <!-- Hasil Seleksi -->
         <li>
             <a href="{{ route('siswa.hasil') }}"
-               class="flex items-center gap-2 py-2 px-4 rounded transition-all duration-300
+               class="flex items-center gap-2 py-2 pl-4 pr-4 rounded transition-all duration-300
                {{ request()->routeIs('siswa.hasil') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
                      viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M11 17l-5-5m0 0l5-5m-5 5h12"
+                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 018.382 17.032l-.008.008C21.09 21.097 22 22 22 22s-1.09-.903-2.009-1.912a12.012 12.012 0 00-16 0C3.09 21.097 2 22 2 22s.91-.903 2.009-1.912a12.012 12.012 0 000-16z"
                           stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 Hasil Seleksi
             </a>
         </li>
 
-        <!-- Cetak Berkas -->
         <li>
             <a href="{{ route('siswa.berkas') }}"
-               class="flex items-center gap-2 py-2 px-4 rounded transition-all duration-300
+               class="flex items-center gap-2 py-2 pl-4 pr-4 rounded transition-all duration-300
                {{ request()->routeIs('siswa.berkas') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
                      viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -92,10 +93,14 @@
             </a>
         </li>
 
-        <!-- Profil -->
+        <div class="border-t border-gray-700 my-4"></div>
+
+        <li class="text-gray-400 text-xs uppercase tracking-wider font-semibold mt-6 mb-2">
+            Pengaturan Akun
+        </li>
         <li>
             <a href="{{ route('profile.edit') }}"
-               class="flex items-center gap-2 py-2 px-4 rounded transition-all duration-300
+               class="flex items-center gap-2 py-2 pl-4 pr-4 rounded transition-all duration-300
                {{ request()->routeIs('profile.edit') ? 'bg-gray-700 font-semibold text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
                      viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

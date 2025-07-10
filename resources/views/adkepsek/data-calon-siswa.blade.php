@@ -11,12 +11,50 @@
 
     <hr class="border-t-2 border-gray-800 my-6">
 
-    <!-- Export Excel -->
-    <div class="flex justify-between items-center mb-4">
-        <a href="{{ route('kepsek.export.excel') }}" class="min-w-[200px] text-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-            Export Excell
-        </a>
-    </div>
+    <!-- Filter dan Export -->
+    <form action="{{ route('kepsek.export.excel') }}" method="GET"
+        class="bg-gray-100 rounded mb-3 mt-2 flex flex-col md:flex-row md:flex-wrap md:items-end gap-4">
+    
+        <!-- Filter Tanggal -->
+        <div class="flex-1 min-w-[200px]">
+            <label for="start_date" class="block text-sm font-medium mb-1">Dari Tanggal</label>
+            <input type="date" name="start_date" id="start_date"
+                    class="w-full border p-2 rounded"
+                    value="{{ request('start_date') }}">
+        </div>
+
+        <div class="flex-1 min-w-[200px]">
+            <label for="end_date" class="block text-sm font-medium mb-1">Sampai Tanggal</label>
+            <input type="date" name="end_date" id="end_date"
+                    class="w-full border p-2 rounded"
+                    value="{{ request('end_date') }}">
+        </div>
+
+        <!-- Filter Status -->
+        <div class="flex-1 min-w-[200px]">
+            <label for="status" class="block text-sm font-medium mb-1">Status</label>
+            <select name="status" id="status"
+                    class="w-full border p-2 rounded">
+                <option value="">-- Semua --</option>
+                <option value="diterima" {{ request('status') == 'diterima' ? 'selected' : '' }}>Diterima</option>
+                <option value="ditolak" {{ request('status') == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
+                <option value="diproses" {{ request('status') == 'diproses' ? 'selected' : '' }}>Diproses</option>
+            </select>
+        </div>
+        
+        <!-- Tombol -->
+        <div class="flex-1 min-w-[200px] mt-2 md:mt-6">
+            <button type="submit"
+                class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M6 9V4h12v5M6 14H5a2 2 0 01-2-2V9a2 2 0 012-2h14a2 2 0 012 2v3a2 2 0 01-2 2h-1M6 14v5h12v-5" />
+                </svg>
+                Export
+            </button>
+        </div>        
+    </form>
 
     <div class="card">
         <div class="card-body">

@@ -45,30 +45,26 @@
 <body class="min-h-screen flex items-center justify-center bg-[#072ac8] bg-no-repeat text-gray-800 px-4">
 
     <div class="bg-white rounded-xl shadow-2xl w-full max-w-md p-8 fade-in-down soft-glow"
-         data-aos="fade-up"
-         data-aos-duration="1000"
+          data-aos="fade-up"
+          data-aos-duration="1000"
     >
-        <!-- Judul -->
         <div class="text-center mb-6">
             <h2 class="text-3xl font-bold text-blue-700">Buat Password Baru</h2>
             <p class="font-semibold text-gray-700">Silakan atur ulang password akun Anda</p>
         </div>
 
-        <!-- Error validasi -->
         @if ($errors->any())
             <div class="mb-4 bg-red-100 border border-red-300 text-red-700 px-4 py-2 rounded">
                 {{ $errors->first() }}
             </div>
         @endif
 
-        <!-- Form Reset Password -->
         <form method="POST" action="{{ route('password.update') }}">
             @csrf
 
             <input type="hidden" name="token" value="{{ $token }}">
             <input type="hidden" name="email" value="{{ $email }}">
 
-            <!-- Password -->
             <div class="mb-4">
                 <label class="block text-sm font-medium">Password Baru</label>
                 <input 
@@ -79,7 +75,6 @@
                 >
             </div>
 
-            <!-- Konfirmasi Password -->
             <div class="mb-6">
                 <label class="block text-sm font-medium">Konfirmasi Password</label>
                 <input 
@@ -90,7 +85,6 @@
                 >
             </div>
 
-            <!-- Tombol Reset -->
             <button 
                 type="submit" 
                 class="w-full bg-[#072ac8] hover:bg-[#051f9c] text-white py-2 rounded-md font-semibold transition duration-200"
@@ -98,7 +92,6 @@
                 Reset Password
             </button>
 
-            <!-- Link ke Login -->
             <p class="text-sm text-center mt-4">
                 <a href="{{ route('login') }}" class="text-blue-600 hover:underline">
                     Kembali ke Login
@@ -107,7 +100,6 @@
         </form>
     </div>
 
-    <!-- Script AOS -->
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
         AOS.init();

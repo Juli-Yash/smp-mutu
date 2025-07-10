@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PendaftaranExport;
 use App\Models\Pendaftaran;
-
+use Carbon\Carbon;
 
 
 class AdminDashboardController extends Controller
@@ -100,11 +100,30 @@ class AdminDashboardController extends Controller
         return view('admin.data-siswa.index', compact('pendaftars'));
     }    
 
-    public function exportExcel()
+
+    public function exportExcel(Request $request)
     {
-        $date = now()->format('Y-m-d_H-i-s');
-        $filename = 'Data_Pendaftar-SMP_MUTU_' . $date . '.xlsx';
-        
-        return Excel::download(new PendaftaranExport, $filename);
+        $query = Pendaftaran::query();
+
+        // Filter tanggal pendaftaran (created_at)
+        if ($request->filled('start_date')) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->filled('end_date')) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        // Filter status (Diterima / Ditolak / Diproses)
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $filteredData = $query->get();
+
+        $timestamp = Carbon::now()->format('Ymd_His');
+        $filename = 'Rekap_Pendaftar_' . $timestamp . '.xlsx';
+
+        return Excel::download(new PendaftaranExport($filteredData), $filename);
     }
 }

@@ -39,9 +39,19 @@
         .info {
             margin-top: 20px;
         }
-        .footer-info {
-            margin-top: 30px;
+
+        /* Footer dua kolom */
+        .footer-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start; 
             font-size: 11px;
+            margin-top: 50px;
+        }
+        .footer-left {
+            text-align: left;
+        }
+        .footer-right {
             text-align: right;
         }
     </style>
@@ -104,9 +114,25 @@
         </tbody>
     </table>
 
-    <div class="footer-info">
-        Dicetak oleh: {{ auth()->user()->name }}<br>
-        Tanggal Cetak: {{ now()->translatedFormat('d F Y, H:i') }}
+    @php
+        $currentUser = auth()->check() ? auth()->user()->name : 'Administrator';
+        $kepsek = \App\Models\User::where('role', 'kepsek')->first();
+        $kepsekName = $kepsek ? $kepsek->name : 'Kepala Sekolah';
+    @endphp
+
+    <div class="footer-section">
+        <!-- Kiri: info cetak -->
+        <div class="footer-left">
+            Dicetak oleh: {{ $currentUser }}<br>
+            Tanggal Cetak: {{ now()->translatedFormat('d F Y, H:i') }}
+        </div>
+
+        <!-- Kanan: TTD Kepsek -->
+        <div class="footer-right">
+            Rowokele, {{ now()->translatedFormat('d F Y') }}<br>
+            Kepala Sekolah<br><br><br>
+            <strong>{{ $kepsekName }}</strong>
+        </div>
     </div>
 
 </body>
